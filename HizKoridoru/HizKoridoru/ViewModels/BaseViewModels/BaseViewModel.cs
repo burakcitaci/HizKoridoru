@@ -21,7 +21,7 @@ namespace HizKoridoru.ViewModels.BaseViewModels
       }
 
       bool isSelected = false;
-      public bool IsReserved
+      public bool IsSelected
       {
          get { return isSelected; }
          set { SetProperty(ref isSelected, value); }

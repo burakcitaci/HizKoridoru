@@ -12,6 +12,17 @@ namespace HizKoridoru
       public MainPage()
       {
          InitializeComponent();
+         
+      }
+
+      private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+      {
+
+      }
+
+      private void TapGestureRecognizer_Tapped_1(object sender, EventArgs e)
+      {
+
       }
    }
 }
