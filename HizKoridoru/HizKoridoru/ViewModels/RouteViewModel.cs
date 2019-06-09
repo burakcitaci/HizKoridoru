@@ -13,20 +13,29 @@ namespace HizKoridoru.ViewModels
 {
    public class RouteViewModel : BaseViewModel
    {
-      public ObservableCollection<Route> Items { get; set; }
+      public ObservableCollection<Route> Routes { get; set; }
       public Command LoadItemsCommand { get; set; }
 
       public RouteViewModel()
       {
          Title = "Browse";
-         Items = new ObservableCollection<Route>();
+         Routes = new ObservableCollection<Route>();
+         Routes.Add(new Route { StartDestination = "Bati Hereke",
+            EndDestination = "Dil Iskelesi",
+            Date = DateTime.Today.ToShortDateString(),
+            IsSelected = false});
+
+         Routes.Add(new Route { StartDestination = "Tuzla",
+            EndDestination = "Gebze",
+            Date = DateTime.Today.ToShortDateString(),
+            IsSelected = false });
          LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
          IsSelected = true;
         
          MessagingCenter.Subscribe<NewRoute, Route>(this, "AddNewRoute", async (obj, item) =>
          {
             var newRoute = item as Route;
-            Items.Add(newRoute);
+            Routes.Add(newRoute);
             await DataStore.AddItemAsync(newRoute);
          });
       }
@@ -44,11 +53,11 @@ namespace HizKoridoru.ViewModels
 
          try
          {
-            Items.Clear();
+            Routes.Clear();
             var items = await DataStore.GetItemsAsync(true);
             foreach (var item in items)
             {
-               Items.Add(item);
+               Routes.Add(item);
             }
          }
          catch (Exception ex)

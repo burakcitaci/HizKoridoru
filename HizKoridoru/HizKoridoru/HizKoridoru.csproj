@@ -16,7 +16,6 @@
   <ItemGroup>
     <Folder Include="DB\" />
     <Folder Include="Globals\" />
-    <Folder Include="ExtendedClasses\" />
     <Folder Include="Services\Interfaces\" />
   </ItemGroup>
 </Project>
