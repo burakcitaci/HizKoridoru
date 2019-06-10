@@ -1,4 +1,5 @@
-﻿using HizKoridoru.HelperClasses;
+﻿using HizKoridoru.ExtendedClasses;
+using HizKoridoru.HelperClasses;
 using HizKoridoru.Models;
 using HizKoridoru.ViewModels.BaseViewModels;
 using System;
@@ -7,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
 using Xamarin.Forms;
 
 namespace HizKoridoru.ViewModels
@@ -15,6 +17,8 @@ namespace HizKoridoru.ViewModels
    {
       public ObservableCollection<Route> Routes { get; set; }
       public Command LoadItemsCommand { get; set; }
+
+      public static bool IsFirstFrame { get; set; }
 
       public RouteViewModel()
       {
@@ -29,6 +33,15 @@ namespace HizKoridoru.ViewModels
             EndDestination = "Gebze",
             Date = DateTime.Today.ToShortDateString(),
             IsSelected = false });
+
+         Routes.Add(new Route
+         {
+            StartDestination = "Kartal",
+            EndDestination = "Samandira",
+            Date = DateTime.Today.ToShortDateString(),
+            IsSelected = false
+         });
+         ExtendedFrame.CurrentRoutes = Routes.ToList();
          LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
          IsSelected = true;
         
