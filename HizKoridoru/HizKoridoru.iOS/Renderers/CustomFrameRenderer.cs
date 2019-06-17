@@ -15,50 +15,61 @@ namespace HizKoridoru.iOS.Renderers
 {
    public class CustomFrameRenderer : FrameRenderer
    {
-      ExtendedFrame extendedFrame;
       UILongPressGestureRecognizer longPressGestureRecognizer;
+      UITapGestureRecognizer gestureRecognizer;
+
       protected override void OnElementChanged(ElementChangedEventArgs<Frame> e)
       {
          base.OnElementChanged(e);
-         longPressGestureRecognizer = longPressGestureRecognizer ??
-            new UILongPressGestureRecognizer(() =>
-            {
-               var extendedFrame = (Element as ExtendedFrame);
-               if (extendedFrame != null)
+         var extendedFrame = (Element as ExtendedFrame);
+         if (extendedFrame == null)
+            return;
+       
+         if (extendedFrame != null && extendedFrame.CurrentRoute != null)
+         {
+            gestureRecognizer = new UITapGestureRecognizer(() =>{
+               if (gestureRecognizer.State == UIGestureRecognizerState.Ended)
                {
-                  if (longPressGestureRecognizer.State == UIGestureRecognizerState.Began)
-                  {
-                     (Element as ExtendedFrame).InvokeLongPressedEvent(extendedFrame.CurrentRoute);
-                     extendedFrame.IsFrameSelected = false;
-                  }
-                  else
-                  {
-                     extendedFrame.IsFrameSelected = true;
-                  }
+                 (Element as ExtendedFrame).InvokeNormalPressedEvent(extendedFrame);
+                 extendedFrame.IsFrameSelected = false;
+               }
+               else
+               {
+                  extendedFrame.IsFrameSelected = true;
                }
             });
 
-         if (longPressGestureRecognizer != null)
-         {
-            if (e.NewElement == null)
-            {
-               this.RemoveGestureRecognizer(longPressGestureRecognizer);
-            }
-            else if (e.OldElement == null)
+            longPressGestureRecognizer = new UILongPressGestureRecognizer(() => {
+               if (gestureRecognizer.State == UIGestureRecognizerState.Failed)
+               {
+                  (Element as ExtendedFrame).InvokeLongPressedEvent(extendedFrame);
+                  extendedFrame.IsFrameSelected = false;
+               }
+               else
+               {
+                  extendedFrame.IsFrameSelected = true;
+               }
+            });
+            if (longPressGestureRecognizer != null && gestureRecognizer != null)
             {
                this.AddGestureRecognizer(longPressGestureRecognizer);
+               this.AddGestureRecognizer(gestureRecognizer);
             }
-           
+            //if (longPressGestureRecognizer != null && gestureRecognizer != null)
+            //{
+            //   if (e.NewElement == null)
+            //   {
+            //      this.RemoveGestureRecognizer(longPressGestureRecognizer);
+            //      this.RemoveGestureRecognizer(gestureRecognizer);
+            //   }
+            //   else if (e.OldElement == null)
+            //   {
+            //      this.AddGestureRecognizer(longPressGestureRecognizer);
+            //      this.AddGestureRecognizer(gestureRecognizer);
+            //   }
+
+            //}
          }
-         //if (e.NewElement != null && (e.NewElement as ExtendedFrame).CurrentRoute != null)
-         //{
-
-         //   if (e.OldElement == null)
-         //   {
-
-         //   }
-
-         //}
       }
       //UILongPressGestureRecognizer longPressGestureRecognizer;
       //UIGestureRecognizer normalPressGestureRecognizer;

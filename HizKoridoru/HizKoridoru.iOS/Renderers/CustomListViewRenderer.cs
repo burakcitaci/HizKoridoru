@@ -31,15 +31,17 @@ namespace HizKoridoru.iOS.Renderers
          if (e.NewElement != null)
          {
             Control.TableFooterView = new UIView(CGRect.Empty);
+            Control.TableHeaderView = new UIView(CGRect.Empty);
             Control.SeparatorInset = UIEdgeInsets.Zero;
+           
 
-
-            if (e.NewElement.IsGroupingEnabled)
-            {
-               var groupedTableView = new UITableView(Control.Frame, UITableViewStyle.Grouped);
+            //if (!e.NewElement.IsGroupingEnabled)
+            //{
+            //   e.NewElement.IsGroupingEnabled = true;
+            //   var groupedTableView = new UITableView(Control.Frame, UITableViewStyle.Grouped);
                
-               SetNativeControl(groupedTableView);
-            }
+            //   SetNativeControl(groupedTableView);
+            //}
          }
       }
    }

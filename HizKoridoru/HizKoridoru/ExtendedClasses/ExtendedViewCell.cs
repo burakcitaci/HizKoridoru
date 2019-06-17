@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
 using System.Linq;
+using HizKoridoru.ViewModels;
+
 namespace HizKoridoru.ExtendedClasses
 {
    public class ExtendedViewCell : ViewCell
@@ -14,14 +16,24 @@ namespace HizKoridoru.ExtendedClasses
       public Route CurrentRoute { get; set; }
       public ExtendedViewCell()
       {
-         if (CurrentRoutes != null && CurrentRoutes.Count > 0)
+         if (Device.RuntimePlatform == Device.Android)
          {
-            CurrentRoute = CurrentRoutes.First();
-            CurrentRoutes.Remove(CurrentRoute);
-
+            RouteViewModel.IsFirstFrame = true;
          }
-         IsFrameSelected = false;
-        
+
+         if (RouteViewModel.IsFirstFrame)
+         {
+            if (CurrentRoutes.Count > 0)
+            {
+               CurrentRoute = CurrentRoutes.First();
+               CurrentRoutes.Remove(CurrentRoute);
+            }
+         }
+
+         if (CurrentRoutes.Count == 0)
+         {
+            RouteViewModel.IsFirstFrame = false;
+         }
       }
       public delegate void LongPress(object sender);
       public event LongPress LongPressed;

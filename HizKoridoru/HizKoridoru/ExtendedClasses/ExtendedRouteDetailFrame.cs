@@ -3,11 +3,12 @@ using HizKoridoru.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Xamarin.Forms;
 using System.Linq;
+using Xamarin.Forms;
+
 namespace HizKoridoru.ExtendedClasses
 {
-   public class ExtendedFrame : Frame
+   public class ExtendedRouteDetailFrame : Frame
    {
       /// <summary>
       /// 
@@ -27,7 +28,7 @@ namespace HizKoridoru.ExtendedClasses
       /// <summary>
       /// 
       /// </summary>
-      public ExtendedFrame()
+      public ExtendedRouteDetailFrame()
       {
          if (CurrentRoutes != null)
          {
@@ -82,3 +83,4 @@ namespace HizKoridoru.ExtendedClasses
       }
    }
 }
+

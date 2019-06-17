@@ -15,36 +15,28 @@ namespace HizKoridoru.ViewModels
 {
    public class RouteViewModel : BaseViewModel
    {
+      #region Public Properties
+      /// <summary>
+      /// 
+      /// </summary>
       public ObservableCollection<Route> Routes { get; set; }
+
+      /// <summary>
+      /// 
+      /// </summary>
       public Command LoadItemsCommand { get; set; }
 
+      /// <summary>
+      /// 
+      /// </summary>
       public static bool IsFirstFrame { get; set; }
+      #endregion
 
       public RouteViewModel()
       {
-         Title = "Browse";
          Routes = new ObservableCollection<Route>();
-         Routes.Add(new Route { StartDestination = "Bati Hereke",
-            EndDestination = "Dil Iskelesi",
-            Date = DateTime.Today.ToShortDateString(),
-            IsSelected = false});
-
-         Routes.Add(new Route { StartDestination = "Tuzla",
-            EndDestination = "Gebze",
-            Date = DateTime.Today.ToShortDateString(),
-            IsSelected = false });
-
-         Routes.Add(new Route
-         {
-            StartDestination = "Kartal",
-            EndDestination = "Samandira",
-            Date = DateTime.Today.ToShortDateString(),
-            IsSelected = false
-         });
-         ExtendedFrame.CurrentRoutes = Routes.ToList();
          LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
-         IsSelected = true;
-        
+         
          MessagingCenter.Subscribe<NewRoute, Route>(this, "AddNewRoute", async (obj, item) =>
          {
             var newRoute = item as Route;

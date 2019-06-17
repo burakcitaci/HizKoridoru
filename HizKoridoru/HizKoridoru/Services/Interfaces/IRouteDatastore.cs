@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HizKoridoru.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +27,7 @@ namespace HizKoridoru.Services.DataStores
       /// </summary>
       /// <param name="id"></param>
       /// <returns></returns>
-      Task<bool> DeleteItemAsync(string id);
+      Task<bool> DeleteItemAsync(Route route);
 
       /// <summary>
       /// 

@@ -1,12 +1,128 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="HizKoridoru.Views.RouteDeletePage">
+             x:Class="HizKoridoru.Views.RouteDeletePage"
+             xmlns:extended="clr-namespace:HizKoridoru.ExtendedClasses"
+             xmlns:converter="clr-namespace:HizKoridoru.Converters"
+             BackgroundColor="White">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:IsSelectedColorConverter x:Key="IsSelectedColor"></converter:IsSelectedColorConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <NavigationPage.TitleView>
+        <StackLayout  Orientation="Horizontal" VerticalOptions="Center" Spacing="10" BackgroundColor="White">
+            <Label x:Name="titleText"
+                   VerticalTextAlignment="Center"
+                   HorizontalTextAlignment="Center"
+                   FontSize="Large" 
+                   HorizontalOptions="StartAndExpand">
+                <Label.TextColor>
+                    <OnPlatform x:TypeArguments="Color"
+                                Android="White" 
+                                iOS="Default"/>
+                </Label.TextColor>
+            </Label>
+            <Image HorizontalOptions="EndAndExpand" Margin="0,0,10,0">
+                <Image.Source>
+                    <OnPlatform x:TypeArguments="ImageSource"
+                                Android="ic_delete_white_24dp.png" 
+                                iOS="delete_20.png"/>
+                </Image.Source>
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                </Image.GestureRecognizers>
+                <!--<Image.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1" />
+            </Image.GestureRecognizers>-->
+            </Image>
+        </StackLayout>
+    </NavigationPage.TitleView>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <extended:ExtendedListView x:Name="extendedListView" 
+                                   SeparatorVisibility="None"
+                                   ItemsSource="{Binding Routes}"
+                                   RefreshCommand="{Binding LoadItemsCommand}"
+                                   IsPullToRefreshEnabled="True"
+                                   IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                                   HasUnevenRows="True">
+                <extended:ExtendedListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout> 
+                                <extended:ExtendedRouteDetailFrame Padding="15,15,15,0"
+                                                        NormalPressed="ExtendedFrame_NormalPressed"
+                                                        BackgroundColor = "{Binding IsSelected, Converter={StaticResource IsSelectedColor}}">
+                                    <StackLayout>
+                                        <Grid RowSpacing="0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.33*" />
+                                                <ColumnDefinition Width="0.33*" />
+                                                <ColumnDefinition Width="0.33*" />
+                                            </Grid.ColumnDefinitions>
+                                            <StackLayout Grid.Row="0" 
+                                                         Grid.Column="2"
+                                                         Orientation="Vertical"
+                                                         HorizontalOptions="EndAndExpand">
+                                                <Label Text="{Binding Date}" 
+                                                       FontSize="Default"/>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal"
+                                                         Grid.Row="0"
+                                                         Grid.Column="0"
+                                                         Grid.ColumnSpan="2"
+                                                         Padding="0,0,0,2">
+                                                <Label Text="{Binding StartDestination }" 
+                                                       FontSize="Default"
+                                                       TextColor="Black"/>
+                                                <Label Text="{Binding EndDestination }" 
+                                                       FontSize="Default"
+                                                       TextColor="Black"
+                                                       HorizontalOptions="StartAndExpand" 
+                                                       HorizontalTextAlignment="Start"/>
+                                            </StackLayout>
+                                            <StackLayout Grid.Row="1"
+                                                         Grid.Column="0"
+                                                         Orientation="Vertical"
+                                                         x:Name="MYLayout">
+                                                <Label Text="{Binding Distance}"
+                                                       x:Name="myLabel"
+                                                       FontSize="Default" />
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal"
+                                                         Grid.Row="1"
+                                                         Grid.Column="0"
+                                                         Grid.ColumnSpan="2"
+                                                         Padding="0,0,0,15">
+                                                <Label Text="{Binding StartDestination }" 
+                                                       FontSize="12"/>
+                                                <Label Text="{Binding EndDestination }" 
+                                                       FontSize="12"
+                                                   HorizontalOptions="StartAndExpand" 
+                                                   HorizontalTextAlignment="Start"/>
+                                            </StackLayout>
+                                            <BoxView  Grid.Column="0"
+                                                  Grid.Row="2"
+                                                  Grid.ColumnSpan="3"
+                                                  HeightRequest="1"
+                                                  VerticalOptions="EndAndExpand"
+                                                  BackgroundColor="LightBlue"
+                                                  Color="LightGray"/>
+                                        </Grid>
+                                    </StackLayout>
+                                </extended:ExtendedRouteDetailFrame>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </extended:ExtendedListView.ItemTemplate>
+            </extended:ExtendedListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

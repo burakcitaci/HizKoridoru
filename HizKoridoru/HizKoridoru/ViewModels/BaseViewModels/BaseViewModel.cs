@@ -11,7 +11,7 @@ namespace HizKoridoru.ViewModels.BaseViewModels
 {
    public class BaseViewModel : INotifyPropertyChanged
    {
-      public IRouteDataStore<Route> DataStore => DependencyService.Get<IRouteDataStore<Route>>() ??null;
+      public IRouteDataStore<Route> DataStore => DependencyService.Get<IRouteDataStore<Route>>() ?? new RouteDataStore();
 
       bool isBusy = false;
       public bool IsBusy

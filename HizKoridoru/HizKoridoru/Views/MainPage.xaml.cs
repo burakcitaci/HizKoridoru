@@ -16,13 +16,20 @@ namespace HizKoridoru
       RouteViewModel routeViewModel;
       public MainPage()
       {
-         InitializeComponent();
-         
+         InitializeComponent();        
          BindingContext = routeViewModel = new RouteViewModel();
          this.BackgroundColor = Color.White;
-         //NavigationPage.SetHasNavigationBar(this, true);
-         
+         //NavigationPage.SetHasNavigationBar(this, true); 
       }
+
+      protected override void OnAppearing()
+      {
+         base.OnAppearing();
+
+         if (routeViewModel.Routes.Count == 0)
+            routeViewModel.LoadItemsCommand.Execute(null);
+      }
+
 
       private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
       {
@@ -34,14 +41,34 @@ namespace HizKoridoru
 
       }
 
-      private void ExtendedFrame_NormalPressed(object sender)
+      private async void ExtendedFrame_NormalPressed(object sender)
       {
-
+         await Navigation.PushAsync(new RouteDetailPage((sender as ExtendedFrame).CurrentRoute));
       }
 
       private async void ExtendedFrame_LongPressed(object sender)
       {
-         await Navigation.PushAsync(new RouteDeletePage((sender as ExtendedFrame).CurrentRoute));
+         try
+         {
+            //(sender as ExtendedFrame).BackgroundColor = Color.Gray;
+            Route route = (sender as ExtendedFrame).CurrentRoute;
+            RouteDeletePage routeDeletePage = new RouteDeletePage(route);
+            await Application.Current.MainPage.Navigation.PushAsync(routeDeletePage);
+         }
+         catch(Exception ex)
+         {
+
+         }
+      }
+
+      private void TapGestureRecognizer_Tapped_2(object sender, EventArgs e)
+      {
+
+      }
+
+      private void ExtendedListView_ItemTapped(object sender, ItemTappedEventArgs e)
+      {
+
       }
    }
 }
