@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
 using Xamarin.Forms;
+using HizKoridoru.Views;
 
 namespace HizKoridoru.ViewModels
 {
@@ -36,13 +37,30 @@ namespace HizKoridoru.ViewModels
       {
          Routes = new ObservableCollection<Route>();
          LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
-         
-         MessagingCenter.Subscribe<NewRoute, Route>(this, "AddNewRoute", async (obj, item) =>
+         RouteDeletePage.RouteDeleted += RouteDeletePage_RouteDeleted;
+         MessagingCenter.Subscribe<NewRoutePage, Route>(this, "AddNewRoute", async (obj, item) =>
          {
             var newRoute = item as Route;
             Routes.Add(newRoute);
             await DataStore.AddItemAsync(newRoute);
          });
+      }
+
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="e"></param>
+      private void RouteDeletePage_RouteDeleted(object sender, EventArgs e)
+      {
+         List<Route> routes = sender as List<Route>;
+         if(routes != null)
+         {
+            foreach(Route route in routes)
+            {
+               this.Routes.Remove(route);
+            }
+         }
       }
 
       /// <summary>

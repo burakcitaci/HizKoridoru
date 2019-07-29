@@ -4,6 +4,7 @@ using HizKoridoru.ViewModels;
 using HizKoridoru.Views;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,45 +31,46 @@ namespace HizKoridoru
             routeViewModel.LoadItemsCommand.Execute(null);
       }
 
-
-      private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
-      {
-
-      }
-
-      private void TapGestureRecognizer_Tapped_1(object sender, EventArgs e)
-      {
-
-      }
-
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="sender"></param>
       private async void ExtendedFrame_NormalPressed(object sender)
       {
-         await Navigation.PushAsync(new RouteDetailPage((sender as ExtendedFrame).CurrentRoute));
+         ExtendedFrame extendedFrame = sender as ExtendedFrame;
+         if(extendedFrame.CurrentRoute != null)
+            await Navigation.PushAsync(new RouteDetailPage((sender as ExtendedFrame).CurrentRoute));
       }
 
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="sender"></param>
       private async void ExtendedFrame_LongPressed(object sender)
       {
          try
          {
             //(sender as ExtendedFrame).BackgroundColor = Color.Gray;
             Route route = (sender as ExtendedFrame).CurrentRoute;
-            RouteDeletePage routeDeletePage = new RouteDeletePage(route);
-            await Application.Current.MainPage.Navigation.PushAsync(routeDeletePage);
+            if(route != null)
+            {
+               RouteDeletePage routeDeletePage = new RouteDeletePage(route);
+               await Application.Current.MainPage.Navigation.PushAsync(routeDeletePage);
+            }
+            else
+            {
+               (sender as ExtendedFrame).IsEnabled = false;
+            }
          }
          catch(Exception ex)
          {
-
+            Debug.WriteLine(ex.Message);
          }
       }
 
-      private void TapGestureRecognizer_Tapped_2(object sender, EventArgs e)
+      private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
       {
-
-      }
-
-      private void ExtendedListView_ItemTapped(object sender, ItemTappedEventArgs e)
-      {
-
+         await Application.Current.MainPage.Navigation.PushAsync(new NewRoutePage());
       }
    }
 }

@@ -25,7 +25,7 @@ namespace HizKoridoru.iOS.Renderers
          if (extendedFrame == null)
             return;
        
-         if (extendedFrame != null && extendedFrame.CurrentRoute != null)
+         if (extendedFrame != null)
          {
             gestureRecognizer = new UITapGestureRecognizer(() =>{
                if (gestureRecognizer.State == UIGestureRecognizerState.Ended)

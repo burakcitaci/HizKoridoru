@@ -93,8 +93,10 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Renderers\CustomButtonRenderer.cs" />
     <Compile Include="Renderers\CustomFrameRenderer.cs" />
     <Compile Include="Renderers\CustomListViewRenderer.cs" />
+    <Compile Include="Renderers\CustomPickerRenderer.cs" />
     <Compile Include="Renderers\CustomRouteDeleteFrameRenderer.cs" />
     <Compile Include="Renderers\CustomViewCellRenderer.cs" />
     <None Include="Entitlements.plist" />
@@ -153,7 +155,7 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="4.0.0.497661" />
+    <PackageReference Include="Xamarin.Forms" Version="4.1.0.618606" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -185,5 +187,8 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\delete_20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\add_30.png" />
   </ItemGroup>
 </Project>

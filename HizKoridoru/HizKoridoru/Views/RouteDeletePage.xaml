@@ -12,7 +12,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <NavigationPage.TitleView>
-        <StackLayout  Orientation="Horizontal" VerticalOptions="Center" Spacing="10" BackgroundColor="White">
+        <StackLayout  Orientation="Horizontal" VerticalOptions="Center" Spacing="10">
             <Label x:Name="titleText"
                    VerticalTextAlignment="Center"
                    HorizontalTextAlignment="Center"
@@ -42,19 +42,22 @@
     <ContentPage.Content>
         <StackLayout>
             <extended:ExtendedListView x:Name="extendedListView" 
-                                   SeparatorVisibility="None"
-                                   ItemsSource="{Binding Routes}"
-                                   RefreshCommand="{Binding LoadItemsCommand}"
-                                   IsPullToRefreshEnabled="True"
-                                   IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                                   HasUnevenRows="True">
+                                       SeparatorVisibility="None"
+                                       ItemsSource="{Binding Routes}"
+                                       RefreshCommand="{Binding LoadItemsCommand}"
+                                       IsPullToRefreshEnabled="True"
+                                       IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                                       HasUnevenRows="True">
                 <extended:ExtendedListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout> 
-                                <extended:ExtendedRouteDetailFrame Padding="15,15,15,0"
-                                                        NormalPressed="ExtendedFrame_NormalPressed"
-                                                        BackgroundColor = "{Binding IsSelected, Converter={StaticResource IsSelectedColor}}">
+                            <!--StackLayout NormalPRessed?-->
+                            <StackLayout>
+                                <extended:ExtendedRouteDetailFrame x:Name="extendedRouteDetailFrame" 
+                                                                   Padding="15,15,15,0"
+                                                                   BackgroundColor = "{Binding IsSelected, Converter={StaticResource IsSelectedColor}}"
+                                                                   NormalPressed="ExtendedFrame_NormalPressed">
+                                   
                                     <StackLayout>
                                         <Grid RowSpacing="0">
                                             <Grid.RowDefinitions>

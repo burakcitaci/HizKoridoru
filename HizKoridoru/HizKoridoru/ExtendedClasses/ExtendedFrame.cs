@@ -31,36 +31,17 @@ namespace HizKoridoru.ExtendedClasses
       {
          if (CurrentRoutes != null)
          {
-            //if (CurrentRoutes.Count > 0)
-            //{
-            //   CurrentRoute = CurrentRoutes.First();
-            //   CurrentRoutes.Remove(CurrentRoute);
-            //}
-            if (Device.RuntimePlatform == Device.Android)
+            if (CurrentRoutes.Count > 0)
             {
-               RouteViewModel.IsFirstFrame = true;
-            }
-
-            if (RouteViewModel.IsFirstFrame)
-            {
-               if (CurrentRoutes.Count > 0)
-               {
-                  CurrentRoute = CurrentRoutes.First();
-                  CurrentRoutes.Remove(CurrentRoute);
-               }
-            }
-
-            if (CurrentRoutes.Count == 0)
-            {
-               RouteViewModel.IsFirstFrame = false;
+               CurrentRoute = CurrentRoutes.First();
+               CurrentRoutes.Remove(CurrentRoute);
             }
          }
-         RouteViewModel.IsFirstFrame = true;
          HasShadow = false;
       }
 
       /// <summary>
-      /// 
+      /// Long Pressed event for frame
       /// </summary>
       /// <param name="sender">Current frame with current route</param>
       public delegate void LongPress(object sender);
@@ -71,7 +52,7 @@ namespace HizKoridoru.ExtendedClasses
       }
 
       /// <summary>
-      /// 
+      /// Normal Pressed Event for frame
       /// </summary>
       /// <param name="sender"></param>
       public delegate void NormalPress(object sender);

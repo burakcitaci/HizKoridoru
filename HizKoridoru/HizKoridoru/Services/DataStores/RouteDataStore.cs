@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
+using Xamarin.Forms;
 
 namespace HizKoridoru.Services.DataStores
 {
@@ -18,14 +19,17 @@ namespace HizKoridoru.Services.DataStores
       {
          routes = new List<Route>();
 
-         routes.Add(new Route
+         if(Device.RuntimePlatform == Device.iOS)
          {
-            StartDestination = string.Empty,
-            EndDestination = string.Empty,
-            Date = string.Empty,
-            IsSelected = false
-         });
+            routes.Add(new Route
+            {
+               StartDestination = string.Empty,
+               EndDestination = string.Empty,
+               Date = string.Empty,
+               IsSelected = false
+            });
 
+         }
          routes.Add(new Route
          {
             StartDestination = "Tuzla",

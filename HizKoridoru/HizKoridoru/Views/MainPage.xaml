@@ -10,16 +10,13 @@
         <ToolbarItem  Icon="ic_search_white_36dp.png"  Order="Primary"  />
     </ContentPage.ToolbarItems>-->
     <NavigationPage.TitleView>
-        <StackLayout Orientation="Horizontal" VerticalOptions="Center" Spacing="10">
+        <StackLayout Orientation="Horizontal" VerticalOptions="Center">
             <Image HorizontalOptions="StartAndExpand">
                 <Image.Source>
                     <OnPlatform x:TypeArguments="ImageSource"
-                                Android="ic_search_white_36dp.png" 
+                                Android="ic_search_white_24dp.png" 
                                 iOS="search.png"/>
                 </Image.Source>
-                <!--<Image.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
-                </Image.GestureRecognizers>-->
             </Image>
             <Label Text="Hiz Koridoru" 
                    VerticalTextAlignment="Center"
@@ -40,31 +37,27 @@
                 <Image.Source>
                     <OnPlatform x:TypeArguments="ImageSource"
                                 Android="ic_add_white_36dp.png" 
-                                iOS="ic_add_blue_light_24dp.png"/>
+                                iOS="add_30.png"/>
                 </Image.Source>
-                <!--<Image.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1" />
-                </Image.GestureRecognizers>-->
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                </Image.GestureRecognizers>
             </Image>
         </StackLayout>
     </NavigationPage.TitleView>
-    <!--<ContentPage.ToolbarItems>
-        <ToolbarItem Name="addNewReoute" Order="Primary"  Icon="ic_add_white_36dp" Priority="0" />
-    </ContentPage.ToolbarItems>-->
     <StackLayout>
         <extended:ExtendedListView x:Name="extendedListView" 
                                    SeparatorVisibility="None"
                                    ItemsSource="{Binding Routes}"
                                    RefreshCommand="{Binding LoadItemsCommand}"
-                                 
                                    IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                                    HasUnevenRows="True">
             <extended:ExtendedListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <extended:ExtendedFrame Padding="15,15,15,0"
-                                                    NormalPressed="ExtendedFrame_NormalPressed"
-                                                    LongPressed="ExtendedFrame_LongPressed">
+                                                NormalPressed="ExtendedFrame_NormalPressed"
+                                                LongPressed="ExtendedFrame_LongPressed">
                             <StackLayout>
                                 <Grid RowSpacing="0">
                                     <Grid.RowDefinitions>
@@ -78,53 +71,53 @@
                                         <ColumnDefinition Width="0.33*" />
                                     </Grid.ColumnDefinitions>
                                     <StackLayout Grid.Row="0" 
-                                                     Grid.Column="2"
-                                                     Orientation="Vertical"
-                                                     HorizontalOptions="EndAndExpand">
+                                                 Grid.Column="2"
+                                                 Orientation="Vertical"
+                                                 HorizontalOptions="EndAndExpand">
                                         <Label Text="{Binding Date}" 
-                                                  FontSize="Default"/>
+                                               FontSize="Default"/>
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal"
-                                                     Grid.Row="0"
-                                                     Grid.Column="0"
-                                                     Grid.ColumnSpan="2"
-                                                     Padding="0,0,0,2">
+                                                 Grid.Row="0"
+                                                 Grid.Column="0"
+                                                 Grid.ColumnSpan="2"
+                                                 Padding="0,0,0,2">
                                         <Label Text="{Binding StartDestination }" 
-                                                   FontSize="Default"
-                                                   TextColor="Black"/>
+                                               FontSize="Default"
+                                               TextColor="Black"/>
                                         <Label Text="{Binding EndDestination }" 
-                                                   FontSize="Default"
-                                                   TextColor="Black"
-                                                   HorizontalOptions="StartAndExpand" 
-                                                   HorizontalTextAlignment="Start"/>
+                                               FontSize="Default"
+                                               TextColor="Black"
+                                               HorizontalOptions="StartAndExpand" 
+                                               HorizontalTextAlignment="Start"/>
                                     </StackLayout>
                                     <StackLayout Grid.Row="1"
-                                                     Grid.Column="0"
-                                                     Orientation="Vertical"
-                                                     x:Name="MYLayout">
+                                                 Grid.Column="0"
+                                                 Orientation="Vertical">
                                         <Label Text="{Binding Distance}"
-                                                   x:Name="myLabel"
-                                                   FontSize="Default" />
+                                               x:Name="myLabel"
+                                               FontSize="Default" />
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal"
-                                                     Grid.Row="1"
-                                                     Grid.Column="0"
-                                                     Grid.ColumnSpan="2"
-                                                     Padding="0,0,0,15">
+                                                 Grid.Row="1"
+                                                 Grid.Column="0"
+                                                 Grid.ColumnSpan="2"
+                                                 Padding="0,0,0,15">
                                         <Label Text="{Binding StartDestination }" 
-                                                   FontSize="12"/>
+                                               FontSize="12"/>
                                         <Label Text="{Binding EndDestination }" 
-                                                   FontSize="12"
-                                                   HorizontalOptions="StartAndExpand" 
-                                                   HorizontalTextAlignment="Start"/>
+                                               FontSize="12"
+                                               HorizontalOptions="StartAndExpand" 
+                                               HorizontalTextAlignment="Start"/>
                                     </StackLayout>
                                     <BoxView  Grid.Column="0"
-                                                  Grid.Row="2"
-                                                  Grid.ColumnSpan="3"
-                                                  HeightRequest="1"
-                                                  VerticalOptions="EndAndExpand"
-                                                  BackgroundColor="LightBlue"
-                                                  Color="LightGray"/>
+                                              Grid.Row="2"
+                                              Grid.ColumnSpan="3"
+                                              HeightRequest="1"
+                                              VerticalOptions="EndAndExpand"
+                                              BackgroundColor="LightBlue"
+                                              Color="LightGray">
+                                    </BoxView>
                                 </Grid>
                             </StackLayout>
                         </extended:ExtendedFrame>

@@ -13,21 +13,31 @@ namespace HizKoridoru.ViewModels
 {
    public class RouteDetailViewModel : BaseViewModel
    {
+      /// <summary>
+      /// 
+      /// </summary>
       public ObservableCollection<Route> Routes { get; set; }
 
+      /// <summary>
+      /// 
+      /// </summary>
       public Command LoadItemsCommand { get; set; }
 
-      public Command DeleteItemsCommand { get; set; }
-
-
+      /// <summary>
+      /// 
+      /// </summary>
       public Route CurrentRoute { get; set; }
+
+      /// <summary>
+      /// Constructor
+      /// </summary>
+      /// <param name="route"></param>
       public RouteDetailViewModel(Route route)
       {
          Routes = new ObservableCollection<Route>();
          LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
          CurrentRoute = route;
          LoadItemsCommand.Execute(null);
-         DeleteItemsCommand = new Command<Route>(async (model) => await ExecuteDeleteRouteCommand(model));
       }
 
       async Task ExecuteLoadItemsCommand()
@@ -51,38 +61,6 @@ namespace HizKoridoru.ViewModels
                }
                Routes.Add(item);
             }
-         }
-         catch (Exception ex)
-         {
-            Debug.WriteLine(ex);
-         }
-         finally
-         {
-            IsBusy = false;
-         }
-      }
-
-      async Task ExecuteDeleteRouteCommand(Route route)
-      {
-         if (IsBusy)
-            return;
-
-         IsBusy = true;
-
-         try
-         {
-            //Routes.Clear();
-            var items = await DataStore.DeleteItemAsync(route);
-            //foreach (var item in items)
-            //{
-            //   if (route != null &&
-            //      (item.StartDestination != route.StartDestination &&
-            //      item.EndDestination != route.EndDestination))
-            //   {
-            //      Routes.Add(item);
-            //   }
-            //}
-           
          }
          catch (Exception ex)
          {

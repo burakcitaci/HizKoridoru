@@ -15,43 +15,54 @@ namespace HizKoridoru.iOS.Renderers
 {
    public class CustomRouteDeleteFrameRenderer : FrameRenderer
    {
-     
-      UITapGestureRecognizer gestureRecognizer;
 
-      
+      MyTapGesture gestureRecognizer;
+
+
 
       protected override void OnElementChanged(ElementChangedEventArgs<Frame> e)
       {
          base.OnElementChanged(e);
-         var extendedFrame = (Element as ExtendedRouteDetailFrame);
+         var extendedFrame = Element as ExtendedRouteDetailFrame;
          if (extendedFrame == null)
             return;
 
-         if(gestureRecognizer == null)
-         {
-            gestureRecognizer = new UITapGestureRecognizer(LongPress);
-         }
-         if (extendedFrame != null && extendedFrame.CurrentRoute != null && 
-            !string.IsNullOrEmpty(extendedFrame.CurrentRoute.StartDestination))
-         {
-          
-            if (gestureRecognizer != null)
-            {
-               this.AddGestureRecognizer(gestureRecognizer);
-            }
-         }
+         if (extendedFrame.CurrentRoute == null)
+            return;
+
+         gestureRecognizer = new MyTapGesture() { ExtendedRouteDetailFrame = extendedFrame };
+         gestureRecognizer.AddTarget(this, new ObjCRuntime.Selector("ResendTrigger:"));
+        
+
+         if (e.NewElement == null)
+            this.RemoveGestureRecognizer(gestureRecognizer);
+         if (e.OldElement == null)
+            this.AddGestureRecognizer(gestureRecognizer);
+
       }
 
-      private void LongPress()
+      [Export("ResendTrigger:")]
+      private void LongPress(MyTapGesture myTapGesture)
       {
-         if (gestureRecognizer.State == UIGestureRecognizerState.Ended)
-         {
+         //if (gestureRecognizer.State == UIGestureRecognizerState.Ended)
+         //{
 
-            (Element as ExtendedRouteDetailFrame).InvokeNormalPressedEvent((Element as ExtendedRouteDetailFrame));
+         //   (Element as ExtendedRouteDetailFrame).InvokeNormalPressedEvent((Element as ExtendedRouteDetailFrame));
 
-         }
+         //}
+      }
+
+ 
+      public void ResendTrigger(UIGestureRecognizer sender)
+      {
+         System.Diagnostics.Debug.WriteLine("Triggered");
       }
    }
 
-  
+   class MyTapGesture : UITapGestureRecognizer
+   {
+      public ExtendedRouteDetailFrame ExtendedRouteDetailFrame { get; set; }
+   }
 }
+
+

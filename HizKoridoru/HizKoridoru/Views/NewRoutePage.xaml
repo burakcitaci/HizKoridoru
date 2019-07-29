@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HizKoridoru.Views.NewRoutePage"
+             xmlns:extended="clr-namespace:HizKoridoru.ExtendedClasses">
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal" 
+                     VerticalOptions="CenterAndExpand" 
+                     HorizontalOptions="StartAndExpand">
+            <Label Text="Geri" TextColor="Black"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="CenterAndExpand"
+                     VerticalOptions="CenterAndExpand"
+                     Margin="20">
+           
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <StackLayout Margin="5,0,0,0"
+                             Grid.Row="0"
+                             Grid.ColumnSpan="2">
+                    <Label Text="Arac türü" FontAttributes="Bold" TextColor="Black"/>
+                    <extended:ExtendedPicker x:Name="VehicleTypePicker" 
+                                             BackgroundColor="Transparent" />
+                </StackLayout>
+                <StackLayout Margin="5,0,0,0"
+                             Grid.ColumnSpan="2"
+                             Grid.Row="1">
+                    <Label Text="Otoyol" TextColor="Black" />
+                    <extended:ExtendedPicker x:Name="HighwayPicker"
+                                             BackgroundColor="Transparent"
+                                             SelectedIndexChanged="HighwayPicker_SelectedIndexChanged"/>
+                </StackLayout>
+                <StackLayout Margin="5,0,0,0"
+                             Grid.Row="2" 
+                             Grid.Column="0">
+                    <Label 
+                       Text="Giris Gisesi" TextColor="Black"
+                       VerticalTextAlignment="Center" />
+                    <extended:ExtendedPicker x:Name="StartTollPicker" ItemDisplayBinding="{Binding Title}"/>
+                </StackLayout>
+                <StackLayout Margin="5,0,0,0"
+                             Grid.Row="2"
+                             Grid.Column="1">
+                    <Label Text="Cikis Gisesi"  TextColor="Black"/>
+                    <extended:ExtendedPicker x:Name="ExitTollPicker"
+                                             BackgroundColor="Transparent" 
+                                             ItemDisplayBinding="{Binding Title}" />
+                </StackLayout>
+                <StackLayout  Grid.Column="1" 
+                              Grid.Row="3" 
+                              Margin="0,5,0,0" 
+                              HorizontalOptions="EndAndExpand">
+                    <extended:ExtendedButton Text="Kaydet" 
+                            BackgroundColor="Accent"
+                            TextColor="White" 
+                            Clicked="Button_Clicked">
+                        <extended:ExtendedButton.WidthRequest>
+                            <OnPlatform x:TypeArguments="x:Double">
+                                <On Platform="iOS">80</On>
+                            </OnPlatform>
+                        </extended:ExtendedButton.WidthRequest>
+                    </extended:ExtendedButton>
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
