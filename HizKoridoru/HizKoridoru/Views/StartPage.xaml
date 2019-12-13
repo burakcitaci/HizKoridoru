@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HizKoridoru.Views.StartPage"
+              xmlns:extended="clr-namespace:HizKoridoru.ExtendedClasses"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <Grid BackgroundColor="White" x:Name="myGrid" Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+          
+            <Frame CornerRadius="10" IsClippedToBounds="True" Padding="0"
+                   Margin="0,0,0,10"
+                   Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
+                  BackgroundColor="#880e4f">
+                <Label Text="Hello World" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" TextColor="White" FontSize="Large"/>
+            </Frame>
+            <Frame CornerRadius="10" IsClippedToBounds="True" Padding="0" 
+                   Grid.Row="1" Grid.Column="0" BackgroundColor="#16a085">
+               
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped">
+
+                    </TapGestureRecognizer>
+                    <ClickGestureRecognizer Clicked="ClickGestureRecognizer_Clicked"></ClickGestureRecognizer>
+                </Frame.GestureRecognizers>
+                <Label Text="Kayitli gise" TextColor="Black" 
+                   FontAttributes="Bold" FontSize="Large"
+                   Grid.Column="0" Grid.Row="1" Margin="5"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="CenterAndExpand"/>
+            </Frame>
+            
+            <Frame CornerRadius="10" IsClippedToBounds="True" Padding="0" 
+                   Grid.Row="1"
+                   Grid.Column="1" BackgroundColor="#ff9100">
+                <!--<Image Aspect="AspectFill">
+                    <Image.Source>
+                        <OnPlatform x:TypeArguments="ImageSource"
+                                Android="BeFunky4.png" 
+                                iOS="search.png"/>
+                    </Image.Source>
+                </Image>-->
+                <Label Text="Hemen basla" TextColor="White" 
+                   FontAttributes="Bold" FontSize="Large"
+                   Grid.Column="1" Grid.Row="1" 
+                   Margin="5"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="CenterAndExpand"/>
+            </Frame>
+           
+            <!--<StackLayout Grid.Row="2" Grid.Column="0"  Grid.ColumnSpan="2" 
+                         VerticalOptions="CenterAndExpand" Margin="0,20,0,0">
+                <Label Text="Son dakika haberleri..." FontSize="Large" FontAttributes="Bold" TextColor="Black"></Label>
+                <Frame CornerRadius="10" IsClippedToBounds="True">
+                    <Label Text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor 
+                               invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. "></Label>
+                </Frame>
+            </StackLayout>-->
+            
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

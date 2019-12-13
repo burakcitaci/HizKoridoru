@@ -11,7 +11,7 @@ namespace HizKoridoru
       {
          InitializeComponent();
 
-         MainPage = new NavigationPage(new MainPage());
+         MainPage = new NavigationPage(new Views.StartPage());
       }
 
       protected override void OnStart()

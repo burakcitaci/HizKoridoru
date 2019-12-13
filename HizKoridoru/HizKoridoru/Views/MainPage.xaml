@@ -11,13 +11,13 @@
     </ContentPage.ToolbarItems>-->
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal" VerticalOptions="Center">
-            <Image HorizontalOptions="StartAndExpand">
+            <!--<Image HorizontalOptions="StartAndExpand">
                 <Image.Source>
                     <OnPlatform x:TypeArguments="ImageSource"
                                 Android="ic_search_white_24dp.png" 
                                 iOS="search.png"/>
                 </Image.Source>
-            </Image>
+            </Image>-->
             <Label Text="Hiz Koridoru" 
                    VerticalTextAlignment="Center"
                    HorizontalTextAlignment="Center"

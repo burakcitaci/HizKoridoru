@@ -7,15 +7,16 @@
         <StackLayout Orientation="Horizontal" 
                      VerticalOptions="CenterAndExpand" 
                      HorizontalOptions="StartAndExpand">
-            <Label Text="Geri" TextColor="Black"/>
+            <Label Text="Yeni rota olustur" FontSize="Large" TextColor="White"/>
         </StackLayout>
     </NavigationPage.TitleView>
     <ContentPage.Content>
-        <StackLayout HorizontalOptions="CenterAndExpand"
-                     VerticalOptions="CenterAndExpand"
-                     Margin="20">
+        <StackLayout Orientation="Vertical" Spacing="0"
+            HorizontalOptions="Center"
+                     VerticalOptions="Center"
+                     Margin="20, 10, 10, 10">
            
-            <Grid>
+            <Grid Padding="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
@@ -27,22 +28,23 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <StackLayout Margin="5,0,0,0"
+                <StackLayout Margin="0,0,0,0"
                              Grid.Row="0"
                              Grid.ColumnSpan="2">
-                    <Label Text="Arac türü" FontAttributes="Bold" TextColor="Black"/>
+                    <Label Text="Arac türü" TextColor="Black"/>
                     <extended:ExtendedPicker x:Name="VehicleTypePicker" 
                                              BackgroundColor="Transparent" />
                 </StackLayout>
-                <StackLayout Margin="5,0,0,0"
+                <StackLayout Margin="0,0,0,0"
                              Grid.ColumnSpan="2"
-                             Grid.Row="1">
+                             Grid.Row="1"
+                             Spacing="0">
                     <Label Text="Otoyol" TextColor="Black" />
                     <extended:ExtendedPicker x:Name="HighwayPicker"
                                              BackgroundColor="Transparent"
                                              SelectedIndexChanged="HighwayPicker_SelectedIndexChanged"/>
                 </StackLayout>
-                <StackLayout Margin="5,0,0,0"
+                <StackLayout Margin="0,0,0,0"
                              Grid.Row="2" 
                              Grid.Column="0">
                     <Label 
@@ -50,15 +52,27 @@
                        VerticalTextAlignment="Center" />
                     <extended:ExtendedPicker x:Name="StartTollPicker" ItemDisplayBinding="{Binding Title}"/>
                 </StackLayout>
-                <StackLayout Margin="5,0,0,0"
+                <StackLayout Margin="0,0,0,0"
                              Grid.Row="2"
                              Grid.Column="1">
                     <Label Text="Cikis Gisesi"  TextColor="Black"/>
                     <extended:ExtendedPicker x:Name="ExitTollPicker"
                                              BackgroundColor="Transparent" 
                                              ItemDisplayBinding="{Binding Title}" />
+                   
                 </StackLayout>
-                <StackLayout  Grid.Column="1" 
+                <Button Grid.Row="3" Grid.Column="1" Text="Kaydet" VerticalOptions="EndAndExpand"
+                        HorizontalOptions="EndAndExpand"
+                            BackgroundColor="Accent"
+                            TextColor="White"
+                            Clicked="Button_Clicked">
+                    <Button.WidthRequest>
+                        <OnPlatform x:TypeArguments="x:Double" Android="80" iOS="80">
+
+                        </OnPlatform>
+                    </Button.WidthRequest>
+                </Button>
+                <!--<StackLayout  Grid.Column="1" 
                               Grid.Row="3" 
                               Margin="0,5,0,0" 
                               HorizontalOptions="EndAndExpand">
@@ -72,7 +86,7 @@
                             </OnPlatform>
                         </extended:ExtendedButton.WidthRequest>
                     </extended:ExtendedButton>
-                </StackLayout>
+                </StackLayout>-->
             </Grid>
         </StackLayout>
     </ContentPage.Content>

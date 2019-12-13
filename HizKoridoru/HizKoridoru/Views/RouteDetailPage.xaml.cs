@@ -20,6 +20,9 @@ namespace HizKoridoru.Views
 			InitializeComponent ();
          this.Title = currentRoute.StartDestination + " <--> " + currentRoute.EndDestination;
          demo.Text = currentRoute.StartDestination;
-		}
+         //this.Time.Text = DateTime.UtcNow.ToShortTimeString();
+         TimeSpan time = TimeSpan.FromSeconds(2);
+         this.Time.Text = time.ToString(@"hh\:mm\:ss");
+      }
    }
 }

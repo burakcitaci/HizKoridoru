@@ -10,11 +10,39 @@
         </StackLayout>
     </NavigationPage.TitleView>
     <ContentPage.Content>
-        <StackLayout>
-            <Label x:Name="demo" 
-                Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid ColumnSpacing="5" RowSpacing="5" VerticalOptions="FillAndExpand" Padding="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="25*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackLayout Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" BackgroundColor="AliceBlue" VerticalOptions="FillAndExpand">
+                <Label x:Name="demo" Text="Welcome to Xamarin.Forms!"
+                           VerticalOptions="CenterAndExpand" 
+                           HorizontalOptions="CenterAndExpand" />
+            </StackLayout>
+            <StackLayout Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" BackgroundColor="Red">
+                <Label x:Name="Time" 
+                       TextColor="White" 
+                       FontSize="Title" 
+                       HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
+                       />
+                <Label Text="00:00:00"
+                       TextColor="White" 
+                       FontSize="Title" 
+                       HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
+                       />
+            </StackLayout>
+            <StackLayout Grid.Column="0" Grid.Row="2" BackgroundColor="GreenYellow">
+                <Label x:Name="Timex" Text="70" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            </StackLayout>
+            <StackLayout Grid.Column="1" Grid.Row="2" BackgroundColor="Yellow">
+                <Label FontSize="Title" Text="30 km" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

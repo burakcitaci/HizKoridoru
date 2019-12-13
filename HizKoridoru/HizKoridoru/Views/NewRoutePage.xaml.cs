@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HizKoridoru.DB.Contexts;
+using HizKoridoru.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +26,12 @@ namespace HizKoridoru.Views
 
       private void Button_Clicked(object sender, EventArgs e)
       {
-
+         using (var db = new RouteDBContext())
+         {
+            db.Database.EnsureCreated();
+            Route route = new Route();
+            
+         }
       }
    }
 }
