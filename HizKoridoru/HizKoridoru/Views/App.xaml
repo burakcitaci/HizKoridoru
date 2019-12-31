@@ -4,6 +4,17 @@
              x:Class="HizKoridoru.App">
     <Application.Resources>
         <ResourceDictionary>
+            <!--  CUSTOM FONTS  -->
+            <OnPlatform x:Key="RopaSans" x:TypeArguments="x:String">
+                <On Platform="Android">RopaSans-Regular.ttf#Ropa Sans</On>
+               
+            </OnPlatform>
+
+            <!--  STYLES  -->
+            <Style x:Key="LabeStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="{StaticResource RopaSans}" />
+                <Setter Property="TextColor" Value="White" />
+            </Style>
             <OnPlatform x:TypeArguments="x:String" x:Key="RegularFont">
                 <On Platform="Android" Value="Roboto-Regular.ttf#Raleway" />
 

@@ -20,7 +20,6 @@ namespace HizKoridoru
          InitializeComponent();        
          BindingContext = routeViewModel = new RouteViewModel();
          this.BackgroundColor = Color.White;
-         //NavigationPage.SetHasNavigationBar(this, true); 
       }
 
       protected override void OnAppearing()
@@ -39,7 +38,9 @@ namespace HizKoridoru
       {
          ExtendedFrame extendedFrame = sender as ExtendedFrame;
          if(extendedFrame.CurrentRoute != null)
+         {
             await Navigation.PushAsync(new RouteDetailPage((sender as ExtendedFrame).CurrentRoute));
+         }
       }
 
       /// <summary>
@@ -71,6 +72,29 @@ namespace HizKoridoru
       private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
       {
          await Application.Current.MainPage.Navigation.PushAsync(new NewRoutePage());
+      }
+
+      private async void SwipeGestureRecognizer_Swiped(object sender, SwipedEventArgs e)
+      {
+         Route route = (sender as ExtendedFrame).CurrentRoute;
+         //if (route != null)
+         //{
+         //   RouteDeletePage routeDeletePage = new RouteDeletePage(route);
+         //   await Application.Current.MainPage.Navigation.PushAsync(routeDeletePage);
+         //}
+         //else
+         //{
+         //   (sender as ExtendedFrame).IsEnabled = false;
+         //}
+         if(route != null)
+         {
+            routeViewModel.SelectedRoute = route;
+            routeViewModel.LoadItemsCommand.Execute(null);
+            routeViewModel.SelectedRoute = null;
+         }
+        
+         //Veri bankasi üzerinden IsSelected kaydet?
+
       }
    }
 }

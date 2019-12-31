@@ -26,6 +26,7 @@ namespace HizKoridoru.ViewModels.BaseViewModels
          get { return isSelected; }
          set { SetProperty(ref isSelected, value); }
       }
+
       bool isVisible = false;
       public bool IsVisible
       {

@@ -26,6 +26,7 @@ namespace HizKoridoru.Views
       {
          InitializeComponent();
          SelectedFrameCounter++;
+         route.IsSelected = !route.IsSelected;
          BindingContext = routeDetailViewModel = new RouteDetailViewModel(route);
          if (Device.RuntimePlatform == Device.iOS)
             this.extendedListView.IsEnabled = false;

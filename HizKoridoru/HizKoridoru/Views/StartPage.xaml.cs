@@ -24,7 +24,12 @@ namespace HizKoridoru.Views
 
       private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
       {
-         await Application.Current.MainPage.Navigation.PushAsync(new MainPage());
+         await Application.Current.MainPage.Navigation.PushAsync(new CurrentRoutes());
+      }
+
+      private void SwipeGestureRecognizer_Swiped(object sender, SwipedEventArgs e)
+      {
+         ((Frame)sender).BackgroundColor = Color.Red;
       }
    }
 }

@@ -31,11 +31,14 @@ namespace HizKoridoru.ViewModels
       /// 
       /// </summary>
       public static bool IsFirstFrame { get; set; }
+
+      public Route SelectedRoute { get; set; }
       #endregion
 
       public RouteViewModel()
       {
          Routes = new ObservableCollection<Route>();
+         this.ExecuteLoadItemsCommand();
          LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
          RouteDeletePage.RouteDeleted += RouteDeletePage_RouteDeleted;
          MessagingCenter.Subscribe<NewRoutePage, Route>(this, "AddNewRoute", async (obj, item) =>
@@ -80,6 +83,10 @@ namespace HizKoridoru.ViewModels
             var items = await DataStore.GetItemsAsync(true);
             foreach (var item in items)
             {
+               if(this.SelectedRoute != null && this.SelectedRoute.StartDestination == item.StartDestination)
+               {
+                  item.IsSelected = true;
+               }
                Routes.Add(item);
             }
          }

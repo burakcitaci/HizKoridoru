@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:HizKoridoru"
              x:Class="HizKoridoru.MainPage"
+             xmlns:converter="clr-namespace:HizKoridoru.Converters"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              xmlns:extended="clr-namespace:HizKoridoru.ExtendedClasses">
     <!--<ContentPage.ToolbarItems>
@@ -19,10 +20,7 @@
                 </Image.Source>
             </Image>-->
             <Label Text="Hiz Koridoru" 
-                   VerticalTextAlignment="Center"
-                   HorizontalTextAlignment="Center"
-                   FontSize="Large" 
-                   HorizontalOptions="CenterAndExpand">
+                   FontSize="Large" Padding="2">
                 <Label.TextColor>
                     <OnPlatform x:TypeArguments="Color"
                                 Android="White" 
@@ -45,19 +43,31 @@
             </Image>
         </StackLayout>
     </NavigationPage.TitleView>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:IsSelectedColorConverter x:Key="IsSelectedColor"></converter:IsSelectedColorConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <StackLayout>
         <extended:ExtendedListView x:Name="extendedListView" 
                                    SeparatorVisibility="None"
                                    ItemsSource="{Binding Routes}"
                                    RefreshCommand="{Binding LoadItemsCommand}"
+                                   IsPullToRefreshEnabled="True"
                                    IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                                    HasUnevenRows="True">
+           
             <extended:ExtendedListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <extended:ExtendedFrame Padding="15,15,15,0"
+                                               BackgroundColor = "{Binding IsSelected, Converter={StaticResource IsSelectedColor}}"
                                                 NormalPressed="ExtendedFrame_NormalPressed"
                                                 LongPressed="ExtendedFrame_LongPressed">
+                            <extended:ExtendedFrame.GestureRecognizers>
+                                <SwipeGestureRecognizer Direction="Left" 
+                                                        Swiped="SwipeGestureRecognizer_Swiped"/>
+                            </extended:ExtendedFrame.GestureRecognizers>
                             <StackLayout>
                                 <Grid RowSpacing="0">
                                     <Grid.RowDefinitions>
@@ -73,6 +83,7 @@
                                     <StackLayout Grid.Row="0" 
                                                  Grid.Column="2"
                                                  Orientation="Vertical"
+                                                 IsVisible="{Binding IsSelected}"
                                                  HorizontalOptions="EndAndExpand">
                                         <Label Text="{Binding Date}" 
                                                FontSize="Default"/>
@@ -83,10 +94,10 @@
                                                  Grid.ColumnSpan="2"
                                                  Padding="0,0,0,2">
                                         <Label Text="{Binding StartDestination }" 
-                                               FontSize="Default"
+                                               FontSize="Medium"
                                                TextColor="Black"/>
                                         <Label Text="{Binding EndDestination }" 
-                                               FontSize="Default"
+                                               FontSize="Medium"
                                                TextColor="Black"
                                                HorizontalOptions="StartAndExpand" 
                                                HorizontalTextAlignment="Start"/>
@@ -96,7 +107,7 @@
                                                  Orientation="Vertical">
                                         <Label Text="{Binding Distance}"
                                                x:Name="myLabel"
-                                               FontSize="Default" />
+                                               FontSize="Medium" />
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal"
                                                  Grid.Row="1"

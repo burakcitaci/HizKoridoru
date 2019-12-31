@@ -55,9 +55,9 @@ namespace HizKoridoru.Services.DataStores
             IsSelected = false
          });
 
-         ExtendedViewCell.CurrentRoutes = routes.ToList();
+         //ExtendedViewCell.CurrentRoutes = routes.ToList();
          ExtendedFrame.CurrentRoutes = routes.ToList();
-         ExtendedRouteDetailFrame.CurrentRoutes = routes.ToList();
+         //ExtendedRouteDetailFrame.CurrentRoutes = routes.ToList();
       }
 
       /// <summary>

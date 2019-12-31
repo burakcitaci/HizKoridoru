@@ -73,6 +73,7 @@
                                             <StackLayout Grid.Row="0" 
                                                          Grid.Column="2"
                                                          Orientation="Vertical"
+                                                         IsVisible="{Binding IsSelected}"
                                                          HorizontalOptions="EndAndExpand">
                                                 <Label Text="{Binding Date}" 
                                                        FontSize="Default"/>
