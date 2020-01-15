@@ -14,7 +14,7 @@ namespace HizKoridoru.DB.Contexts
 
       protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
       {
-         var dbPath = "SQLiteDataBaseDestionationNew.db";
+         var dbPath = "Routes.db";
          switch (Device.RuntimePlatform)
          {
             case Device.iOS:

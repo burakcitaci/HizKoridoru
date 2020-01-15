@@ -14,7 +14,7 @@ using HizKoridoru.ExtendedClasses;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
-[assembly: ExportRenderer(typeof(ExtendedFrame), typeof(CustomFrameRenderer))]
+//[assembly: ExportRenderer(typeof(ExtendedFrame), typeof(CustomFrameRenderer))]
 namespace HizKoridoru.Droid.Renderers
 {
    public class CustomFrameRenderer : FrameRenderer

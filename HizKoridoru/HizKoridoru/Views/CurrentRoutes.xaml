@@ -4,18 +4,23 @@
              x:Class="HizKoridoru.Views.CurrentRoutes"
              xmlns:vm="clr-namespace:HizKoridoru.ViewModels"
              xmlns:extended="clr-namespace:HizKoridoru.ExtendedClasses"
+             xmlns:converter="clr-namespace:HizKoridoru.Converters"
+             BackgroundColor="#2C3359"
              NavigationPage.HasNavigationBar="False">
     <ContentPage.BindingContext>
-        <vm:RouteViewModel />
+        <vm:RouteViewModel x:Name="bindingContext"/>
     </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:IsSelectedColorConverter x:Key="StringToColorConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <Shell.TitleView>
         <StackLayout
             Padding="0,0,50,0"
             Orientation="Horizontal">
-            <Label
-                Text="My orders"
-                
-                VerticalOptions="CenterAndExpand">
+            <Label Text="My orders"
+                   VerticalOptions="CenterAndExpand">
                 <Label.HorizontalOptions>
                     <OnPlatform
                         x:TypeArguments="LayoutOptions"
@@ -31,7 +36,7 @@
             <Grid>
                 <StackLayout Padding="0,0,0,0">
                     <!--<Label Text="Hello" TextColor="White" FontSize="Large" Padding="12,12,0,0"/>-->
-                    <StackLayout x:Name="navigationBar" Padding="10" Orientation="Horizontal">
+                    <StackLayout x:Name="navigationBar" Padding="10" Orientation="Horizontal" BackgroundColor="#880e4f">
                         <StackLayout HorizontalOptions="Start">
                             <Image>
                                 <Image.Source>
@@ -44,7 +49,20 @@
                                 </Image.GestureRecognizers>
                             </Image>
                         </StackLayout>
+                        <StackLayout HorizontalOptions="Start" VerticalOptions="Center">
+                            <Label Text="Rotalar" TextColor="White" FontSize="Large"/>
+                        </StackLayout>
                         <StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal">
+                            <Image x:Name="cancelIcon" IsVisible="False" Margin="0,0,20,0">
+                                <Image.Source>
+                                    <OnPlatform x:TypeArguments="ImageSource"
+                                                Android="ic_highlight_off_custom_36dp.png" 
+                                                iOS="add_30.png"/>
+                                </Image.Source>
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="Cancel_Tapped"/>
+                                </Image.GestureRecognizers>
+                            </Image>
                             <Image x:Name="bookmarkIcon" IsVisible="False">
                                 <Image.Source>
                                     <OnPlatform x:TypeArguments="ImageSource"
@@ -52,19 +70,10 @@
                                                 iOS="add_30.png"/>
                                 </Image.Source>
                                 <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                                    <TapGestureRecognizer Tapped="Bookmark_Tapped"/>
                                 </Image.GestureRecognizers>
                             </Image>
-                            <Image x:Name="favoriteIcon" IsVisible="False" Visual="Material">
-                                <Image.Source>
-                                    <OnPlatform x:TypeArguments="ImageSource"
-                                                Android="ic_favorite_border_white_36dp.png" 
-                                                iOS="add_30.png"/>
-                                </Image.Source>
-                                <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-                                </Image.GestureRecognizers>
-                            </Image>
+
                             <Image x:Name="deleteIcon" IsVisible="False" Visual="Material">
                                 <Image.Source>
                                     <OnPlatform x:TypeArguments="ImageSource"
@@ -75,74 +84,99 @@
                                     <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
                                 </Image.GestureRecognizers>
                             </Image>
+                            <Image x:Name="editIcon" IsVisible="True" Visual="Material">
+                                <Image.Source>
+                                    <OnPlatform x:TypeArguments="ImageSource"
+                                                Android="ic_edit_white_36dp.png" 
+                                                iOS="add_30.png"/>
+                                </Image.Source>
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_2"/>
+                                </Image.GestureRecognizers>
+                            </Image>
+                            <Image x:Name="addIcon">
+                                <Image.Source>
+                                    <OnPlatform x:TypeArguments="ImageSource"
+                                                Android="ic_open_in_new_white_36dp.png" 
+                                                iOS="add_30.png"/>
+                                </Image.Source>
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                                </Image.GestureRecognizers>
+                            </Image>
                         </StackLayout>
                     </StackLayout>
-                    <CollectionView ItemsSource="{Binding Routes}"
-                                    SelectionMode="Single">
-                        <CollectionView.ItemsLayout>
-                            <GridItemsLayout Orientation="Vertical" />
-                        </CollectionView.ItemsLayout>
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <extended:ExtendedFrame Padding="18,4,16,4"
-                                                        HasShadow="False"
-                                                        CornerRadius="0"
-                                                        NormalPressed="ExtendedFrame_NormalPressed"
-                                                        LongPressed="ExtendedFrame_LongPressed">
-                                    <Frame BackgroundColor="#52597F"
-                                           Padding="10"    
-                                           CornerRadius="8"
-                                           Visual="Material"
-                                           HasShadow="True">
-                                        <StackLayout Orientation="Horizontal"
+                    <RefreshView IsRefreshing="{Binding IsBusy, Mode=OneWay}" 
+                                 Command="{Binding LoadItemsCommand}">
+                        <extended:ExtendedCollectionView x:Name="collectionView"
+                                                     ItemsSource="{Binding Routes}"
+                                                     SelectionMode="Single">
+                            <extended:ExtendedCollectionView.ItemsLayout>
+                                <GridItemsLayout Orientation="Vertical" />
+                            </extended:ExtendedCollectionView.ItemsLayout>
+                            <extended:ExtendedCollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame x:Name="extendedFrame" 
+                                      BackgroundColor="#2C3359"
+                                       Padding="18,4,16,4"
+                                       HasShadow="False"
+                                       CornerRadius="0">
+                                        <extended:ExtendedFrame Padding="10"    
+                                                            CornerRadius="8"
+                                                            Visual="Material"
+                                                            BackgroundColor="{Binding BGColorHexCode}"
+                                                            HasShadow="True">
+                                            <extended:ExtendedFrame.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_3" 
+                                                                  NumberOfTapsRequired="1"/>
+                                            </extended:ExtendedFrame.GestureRecognizers>
+                                            <StackLayout Orientation="Horizontal"
                                                      Spacing="16">
-                                            <StackLayout HorizontalOptions="FillAndExpand"
+                                                <StackLayout HorizontalOptions="FillAndExpand"
                                                          Orientation="Vertical"
                                                          VerticalOptions="Center"
                                                          Spacing="4">
-                                                <StackLayout Spacing="8" 
+                                                    <StackLayout Spacing="8" 
                                                              Orientation="Horizontal">
-                                                    <Label Text="{Binding StartDestination}"
+                                                        <Label Text="{Binding StartDestination}"
                                                            HorizontalOptions="Start"
                                                            VerticalOptions="Start"
-                                                           LineBreakMode="TailTruncation"
-                                                           FontFamily="{StaticResource RopaSans}"
-                                                           MaxLines="2"
-                                                           TextColor="White"
-                                                           FontSize="Large"/>
-                                                    <Label Text="{Binding EndDestination}"
-                                                           LineBreakMode="TailTruncation"
+                                                           Style="{StaticResource LabelStyle}"/>
+                                                        <Label Text="{Binding EndDestination}"
                                                            HorizontalOptions="Start"
                                                            VerticalOptions="Start"
-                                                           FontFamily="{StaticResource RopaSans}"
-                                                           TextColor="White"
-                                                           FontSize="Large"/>
-                                                    <Label Text="{Binding Date}"
-                                                           LineBreakMode="TailTruncation"
+                                                           Style="{StaticResource LabelStyle}"/>
+                                                        <Label Text="{Binding Date}"
                                                            HorizontalOptions="EndAndExpand"
                                                            VerticalOptions="Start"
-                                                           FontFamily="{StaticResource RopaSans}"
-                                                           TextColor="White"
-                                                           FontSize="Large"/>
-                                                </StackLayout>
-                                                <StackLayout Orientation="Horizontal">
-                                                    <Label
+                                                           Style="{StaticResource LabelStyle}"/>
+                                                    </StackLayout>
+                                                    <StackLayout Orientation="Horizontal">
+                                                        <Label
                                                         Text="In process"
-                                                        LineBreakMode="TailTruncation"
-                                                        TextColor="White"
-                                                        FontSize="Large"
                                                         HorizontalOptions="Start"
-                                                        FontFamily="{StaticResource RopaSans}"
-                                                        MaxLines="2" />
-                                                    <BoxView Margin="10,0"
+                                                        Style="{StaticResource LabelStyle}"/>
+                                                        <Image x:Name="favoriteIcon" 
+                                                           IsVisible="{Binding IsBookmarked}" 
+                                                           Visual="Material"
+                                                           HorizontalOptions="EndAndExpand"
+                                                           VerticalOptions="Start"
+                                                           BackgroundColor="#F55C5C">
+                                                            <Image.Source>
+                                                                <OnPlatform x:TypeArguments="ImageSource"
+                                                                        Android="ic_bookmark_border_white_36dp.png" 
+                                                                        iOS="add_30.png"/>
+                                                            </Image.Source>
+                                                        </Image>
+                                                        <!--<BoxView Margin="10,0"
                                                          CornerRadius="240"
                                                          HeightRequest="25"
                                                          HorizontalOptions="EndAndExpand"
                                                          VerticalOptions="Start"
                                                          WidthRequest="25"
-                                                         Color="#F55C5C" />
-                                                </StackLayout>
-                                                <!--<Label
+                                                         Color="#F55C5C" />-->
+                                                    </StackLayout>
+                                                    <!--<Label
                                                     Text="{Binding EndDestination}"
                                                     LineBreakMode="TailTruncation"
                                                     HorizontalOptions="EndAndExpand"
@@ -157,8 +191,8 @@
                                                          VerticalOptions="Start"
                                                          WidthRequest="25"
                                                          Color="#F55C5C" />-->
-                                            </StackLayout>
-                                            <!--<StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                                </StackLayout>
+                                                <!--<StackLayout Orientation="Horizontal" VerticalOptions="Center">
                                                 <BoxView Margin="10,0"
                                                          CornerRadius="240"
                                                          HeightRequest="25"
@@ -167,12 +201,13 @@
                                                          WidthRequest="25"
                                                          Color="#F55C5C" />
                                             </StackLayout>-->
-                                        </StackLayout>
+                                            </StackLayout>
+                                        </extended:ExtendedFrame>
                                     </Frame>
-                                </extended:ExtendedFrame>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
+                                </DataTemplate>
+                            </extended:ExtendedCollectionView.ItemTemplate>
+                        </extended:ExtendedCollectionView>
+                    </RefreshView>
                 </StackLayout>
             </Grid>
         </Grid>

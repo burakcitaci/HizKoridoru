@@ -15,6 +15,13 @@
                 <Setter Property="FontFamily" Value="{StaticResource RopaSans}" />
                 <Setter Property="TextColor" Value="White" />
             </Style>
+            <Style x:Key="LabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="FontSize" Value="Large"/>
+                <Setter Property="FontFamily" Value="{StaticResource RopaSans}"/>
+                <Setter Property="LineBreakMode" Value="TailTruncation" />
+                <Setter Property="MaxLines" Value="2"/>
+            </Style>
             <OnPlatform x:TypeArguments="x:String" x:Key="RegularFont">
                 <On Platform="Android" Value="Roboto-Regular.ttf#Raleway" />
 

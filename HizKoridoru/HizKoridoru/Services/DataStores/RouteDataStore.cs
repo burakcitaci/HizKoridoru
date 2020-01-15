@@ -6,12 +6,30 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
 using Xamarin.Forms;
+using HizKoridoru.DB.ContextHelpers;
+using HizKoridoru.DB.Contexts;
 
 namespace HizKoridoru.Services.DataStores
 {
    public class RouteDataStore : IRouteDataStore<Route>
    {
       private List<Route> routes;
+      private RouteDBContextHelper<RouteDBContext> routeDBContextHelper;
+      public RouteDBContextHelper<RouteDBContext> RouteDBContextHelper
+      {
+         get
+         {
+            if(routeDBContextHelper == null)
+            {
+               return new RouteDBContextHelper<RouteDBContext>();
+            }
+            else
+            {
+               return routeDBContextHelper;
+            }
+         }
+      }
+
       /// <summary>
       /// 
       /// </summary>
@@ -19,21 +37,24 @@ namespace HizKoridoru.Services.DataStores
       {
          routes = new List<Route>();
 
-         if(Device.RuntimePlatform == Device.iOS)
+         if (Device.RuntimePlatform == Device.iOS)
          {
             routes.Add(new Route
             {
                StartDestination = string.Empty,
                EndDestination = string.Empty,
                Date = string.Empty,
+               BGColorHexCode = "#52597F",
                IsSelected = false
             });
 
          }
+
          routes.Add(new Route
          {
             StartDestination = "Tuzla",
             EndDestination = "Gebze",
+            BGColorHexCode = "#52597F",
             Date = DateTime.Today.ToShortDateString(),
             IsSelected = false
          });
@@ -42,6 +63,7 @@ namespace HizKoridoru.Services.DataStores
          {
             StartDestination = "Bati Hereke",
             EndDestination = "Dil Iskelesi",
+            BGColorHexCode = "#52597F",
             Date = DateTime.Today.ToShortDateString(),
             IsSelected = false
          });
@@ -51,13 +73,16 @@ namespace HizKoridoru.Services.DataStores
          {
             StartDestination = "Kartal",
             EndDestination = "Samandira",
+            BGColorHexCode = "#52597F",
             Date = DateTime.Today.ToShortDateString(),
             IsSelected = false
          });
 
-         //ExtendedViewCell.CurrentRoutes = routes.ToList();
-         ExtendedFrame.CurrentRoutes = routes.ToList();
-         //ExtendedRouteDetailFrame.CurrentRoutes = routes.ToList();
+         //RouteDBContextHelper.AddOrUpdatePostsAsync(routes);
+        
+         //Dört ekli, listede bir eksik
+         var t = RouteDBContextHelper.GetRoutes().Result.ToList();
+         ExtendedFrame.CurrentRoutes = t;
       }
 
       /// <summary>
@@ -109,12 +134,7 @@ namespace HizKoridoru.Services.DataStores
       /// <returns></returns>
       public async Task<IEnumerable<Route>> GetItemsAsync(bool forceRefresh = false)
       {
-         List<Route> tempRoutes = new List<Route>();
-         foreach (var item in routes)
-         {
-            tempRoutes.Add(item);
-         }
-         return await Task.FromResult(tempRoutes);
+         return await Task.FromResult(RouteDBContextHelper.GetRoutes().Result);
       }
 
       /// <summary>
@@ -122,9 +142,16 @@ namespace HizKoridoru.Services.DataStores
       /// </summary>
       /// <param name="item"></param>
       /// <returns></returns>
-      public Task<bool> UpdateItemAsync(Route item)
+      public async Task<bool> UpdateItemAsync(Route item)
       {
-         throw new NotImplementedException();
+         await RouteDBContextHelper.UpdateRoute(item);
+         return await Task.FromResult(true);
+      }
+
+      public async Task<bool> UpdateItemAsync(List<Route> routes)
+      {
+         await RouteDBContextHelper.AddOrUpdatePostsAsync(routes);
+         return await Task.FromResult(true);
       }
    }
 }

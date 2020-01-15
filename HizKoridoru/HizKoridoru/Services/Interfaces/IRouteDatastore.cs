@@ -22,6 +22,8 @@ namespace HizKoridoru.Services.DataStores
       /// <returns></returns>
       Task<bool> UpdateItemAsync(T item);
 
+      Task<bool> UpdateItemAsync(List<T> item);
+
       /// <summary>
       /// 
       /// </summary>

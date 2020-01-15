@@ -22,5 +22,6 @@ namespace HizKoridoru.Droid.Renderers
          _listener = new GestureDetector.SimpleOnGestureListener();
          _detector = new GestureDetector(context, _listener) { IsLongpressEnabled = true };
       }
+     
    }
 }
