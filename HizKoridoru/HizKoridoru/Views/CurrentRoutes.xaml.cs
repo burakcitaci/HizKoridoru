@@ -20,6 +20,7 @@ namespace HizKoridoru.Views
       public CurrentRoutes()
       {
          InitializeComponent();
+         this.title.Text = "Rotalar";
       }
 
       private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
@@ -29,9 +30,10 @@ namespace HizKoridoru.Views
 
       private void Cancel_Tapped(object sender, EventArgs e)
       {
-         this.cancelIcon.IsVisible = false;
          this.collectionView.SelectionMode = SelectionMode.Single;
+         this.title.Text = "Rotalar";
          this.bindingContext.ResetItemsCommand.Execute(null);
+         this.SetVisibility();
       }
 
       private void Bookmark_Tapped(object sender, EventArgs e)
@@ -47,6 +49,8 @@ namespace HizKoridoru.Views
          this.deleteIcon.IsVisible = !this.deleteIcon.IsVisible;
          this.addIcon.IsVisible = !this.addIcon.IsVisible;
          this.cancelIcon.IsVisible = !this.cancelIcon.IsVisible;
+         this.editIcon.IsVisible = !this.editIcon.IsVisible;
+         this.TappedRoutes = new List<Route>();
       }
 
       private void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -83,8 +87,9 @@ namespace HizKoridoru.Views
 
       private void TapGestureRecognizer_Tapped_2(object sender, EventArgs e)
       {
-         this.cancelIcon.IsVisible = true;
+         //this.cancelIcon.IsVisible = true;
          this.collectionView.SelectionMode = SelectionMode.Multiple;
+         this.SetVisibility();
          //this.collectionView.SelectionChanged += CollectionView_SelectionChanged;
       }
 
@@ -96,13 +101,27 @@ namespace HizKoridoru.Views
             ExtendedFrame extendedFrame = ExtendedCollectionView.ExtendedFrameList
              .Where(x => x.CurrentRoute.ID == (sender as ExtendedFrame).CurrentRoute.ID).First();
 
-            if (extendedFrame.BackgroundColor == Color.Red)
+            if (extendedFrame.BackgroundColor == Color.FromHex("#808080"))
             {
-               extendedFrame.BackgroundColor = Color.Yellow;
+               extendedFrame.BackgroundColor = Color.FromHex("#52597F");
+               TappedRoutes.Remove(extendedFrame.CurrentRoute);
             }
             else
             {
-               extendedFrame.BackgroundColor = Color.Red;
+               extendedFrame.BackgroundColor = Color.FromHex("#808080");
+               TappedRoutes.Add(extendedFrame.CurrentRoute);
+            }
+            int countSelected = ExtendedCollectionView.ExtendedFrameList
+               .Where(x => x.BackgroundColor == Color.FromHex("#808080"))
+               .ToList()
+               .Count;
+            if(countSelected != 0)
+            {
+               this.title.Text = countSelected.ToString();
+            }
+            else
+            {
+               this.title.Text = "Rotalar";
             }
          }
          else

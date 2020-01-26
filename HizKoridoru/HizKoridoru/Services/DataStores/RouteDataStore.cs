@@ -30,6 +30,8 @@ namespace HizKoridoru.Services.DataStores
          }
       }
 
+      public Command AddRoutesIfNotExists { get; set; }
+
       /// <summary>
       /// 
       /// </summary>
@@ -64,6 +66,7 @@ namespace HizKoridoru.Services.DataStores
             StartDestination = "Bati Hereke",
             EndDestination = "Dil Iskelesi",
             BGColorHexCode = "#52597F",
+            IsBookmarked = true,
             Date = DateTime.Today.ToShortDateString(),
             IsSelected = false
          });
@@ -78,10 +81,17 @@ namespace HizKoridoru.Services.DataStores
             IsSelected = false
          });
 
-         //RouteDBContextHelper.AddOrUpdatePostsAsync(routes);
+         
         
          //Dört ekli, listede bir eksik
          var t = RouteDBContextHelper.GetRoutes().Result.ToList();
+         t = t.OrderBy(x => x.IsBookmarked).ToList();
+         if(t.Count == 0)
+         {
+            RouteDBContextHelper.AddOrUpdatePostsAsync(routes);
+            t = RouteDBContextHelper.GetRoutes().Result.ToList().OrderBy(x=>x.IsBookmarked).ToList();
+         }
+
          ExtendedFrame.CurrentRoutes = t;
       }
 

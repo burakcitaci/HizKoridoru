@@ -83,6 +83,7 @@ namespace HizKoridoru.ViewModels
 
          Routes.Clear();
          var items = await DataStore.GetItemsAsync(true);
+         items = items.OrderBy(x => x.IsBookmarked);
          foreach (var item in items)
          {
             //item.BGColorHexCode = "#52597F";
@@ -107,6 +108,7 @@ namespace HizKoridoru.ViewModels
          {
             Routes.Clear();
             var items = await DataStore.GetItemsAsync(true);
+            items = items.OrderBy(x => x.IsBookmarked);
             foreach (var item in items)
             {
                //item.BGColorHexCode = "#52597F";

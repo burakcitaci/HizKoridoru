@@ -11,6 +11,7 @@ namespace HizKoridoru.DB.ContextHelpers
 {
    public class RouteDBContextHelper <T> where T : RouteDBContext
    {
+      public List<Route> SavedRoutes { get; set; }
       public RouteDBContext CrateContext()
       {
          RouteDBContext routeDBContext = (T)Activator.CreateInstance(typeof(T));
@@ -26,7 +27,12 @@ namespace HizKoridoru.DB.ContextHelpers
             // add posts that do not exist in the database
             var newPosts = routes.Where(route => context.Routes.Any(dbRoute => dbRoute.ID == route.ID) == false);
             await context.Routes.AddRangeAsync(newPosts);
-            await context.SaveChangesAsync();
+            int result = await context.SaveChangesAsync();
+            SavedRoutes = newPosts.ToList();
+            //if(result == 1)
+            //{
+            //   SavedRoutes = newPosts.ToList();
+            //}
          }
       }
 

@@ -15,7 +15,7 @@
             <converter:IsSelectedColorConverter x:Key="StringToColorConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Shell.TitleView>
+    <!--<Shell.TitleView>
         <StackLayout
             Padding="0,0,50,0"
             Orientation="Horizontal">
@@ -29,7 +29,7 @@
                 </Label.HorizontalOptions>
             </Label>
         </StackLayout>
-    </Shell.TitleView>
+    </Shell.TitleView>-->
     <ContentPage.Content>
         <Grid>
             <BoxView x:Name="backgroundBoxView" BackgroundColor="#2C3359"/>
@@ -50,7 +50,7 @@
                             </Image>
                         </StackLayout>
                         <StackLayout HorizontalOptions="Start" VerticalOptions="Center">
-                            <Label Text="Rotalar" TextColor="White" FontSize="Large"/>
+                            <Label x:Name="title" TextColor="White" FontSize="Title"/>
                         </StackLayout>
                         <StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal">
                             <Image x:Name="cancelIcon" IsVisible="False" Margin="0,0,20,0">
@@ -117,10 +117,10 @@
                             <extended:ExtendedCollectionView.ItemTemplate>
                                 <DataTemplate>
                                     <Frame x:Name="extendedFrame" 
-                                      BackgroundColor="#2C3359"
-                                       Padding="18,4,16,4"
-                                       HasShadow="False"
-                                       CornerRadius="0">
+                                           BackgroundColor="#2C3359"
+                                           Padding="18,4,16,4"
+                                           HasShadow="False"
+                                           CornerRadius="0">
                                         <extended:ExtendedFrame Padding="10"    
                                                             CornerRadius="8"
                                                             Visual="Material"
@@ -137,7 +137,7 @@
                                                          VerticalOptions="Center"
                                                          Spacing="4">
                                                     <StackLayout Spacing="8" 
-                                                             Orientation="Horizontal">
+                                                                 Orientation="Horizontal">
                                                         <Label Text="{Binding StartDestination}"
                                                            HorizontalOptions="Start"
                                                            VerticalOptions="Start"
@@ -161,10 +161,10 @@
                                                            Visual="Material"
                                                            HorizontalOptions="EndAndExpand"
                                                            VerticalOptions="Start"
-                                                           BackgroundColor="#F55C5C">
+                                                           BackgroundColor="#52597F">
                                                             <Image.Source>
                                                                 <OnPlatform x:TypeArguments="ImageSource"
-                                                                        Android="ic_bookmark_border_white_36dp.png" 
+                                                                        Android="ic_bookmark_border_custom_36dp.png" 
                                                                         iOS="add_30.png"/>
                                                             </Image.Source>
                                                         </Image>

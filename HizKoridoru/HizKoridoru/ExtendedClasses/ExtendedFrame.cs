@@ -53,45 +53,11 @@ namespace HizKoridoru.ExtendedClasses
             if (CurrentRoutes.Count > 0)
             {
                CurrentRoute = CurrentRoutes.First();
-               //this.GetParentPage();
-               ////if(ExtendedCollectionView.ExtendedFrames.Count > 0)
-               //{
-               //   if (ExtendedCollectionView.ExtendedFrameList.Where(x => x.CurrentRoute.ID != this.CurrentRoute.ID).FirstOrDefault() == null)
-               //   {
-               //      ExtendedCollectionView.ExtendedFrameList.Add(this);
-               //   }
-               //}
-               //var existingValues = new HashSet<int>(from x in CurrentRoutes select x.ID);
-               //// pick items that have a property bar that doesn't exist yet
-               //var newItems = ExtendedCollectionView.ExtendedFrameList.Where(x => !existingValues.Contains(x.CurrentRoute.ID));
-               //if(newItems == null || newItems.ToList().Count == 0)
-               //{
-               //   ExtendedCollectionView.ExtendedFrameList.Add(this);
-               //}
-               //ExtendedCollectionView.ExtendedFrameList.Add(this);
-               //foreach(var frame in ExtendedCollectionView.ExtendedFrameList)
-               //{
-               //   if(frame.CurrentRoute.ID != this.CurrentRoute.ID)
-               //   {
-               //      ExtendedCollectionView.ExtendedFrameList.Add(this);
-               //   }
-               //}
-
+              
                ExtendedCollectionView.ExtendedFrameList.Add(this);
                ExtendedCollectionView.ExtendedFrameList = ExtendedCollectionView.ExtendedFrameList.DistinctBy(x => x.CurrentRoute.ID).ToList();
-               // Add them
-               //foreach (var item in newItems)
-               //{
-               //   ExtendedCollectionView.ExtendedFrameList.Add(this);
-               //}
-               //if (ExtendedCollectionView.ExtendedFrameList.Where(x => x.CurrentRoute.ID != this.CurrentRoute.ID).FirstOrDefault() == null)
-               //{
-               //   ExtendedCollectionView.ExtendedFrameList.Add(this);
-               //}
-               CurrentRoutes.Remove(CurrentRoute);
 
-               //ExtendedCollectionView.ExtendedFrameList.Add(this);
-               //ExtendedCollectionView.ExtendedFrameList = ExtendedCollectionView.ExtendedFrameList.DistinctBy(x => x.CurrentRoute.ID).ToList();
+               CurrentRoutes.Remove(CurrentRoute);
             }
          }
          HasShadow = false;
